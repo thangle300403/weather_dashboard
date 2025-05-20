@@ -47,6 +47,7 @@ function App() {
 
   if (isError) return <div>Error fetching weather data</div>;
 
+  if (!data) return <div>Loading weather...</div>;
   const current = data.current;
   const daily = data.daily;
   const hourly = data.hourly;
