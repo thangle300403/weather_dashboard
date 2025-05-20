@@ -2,6 +2,15 @@ import { useWeather } from "./hooks/useWeather";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 function App() {
   const { data, isLoading, isError } = useWeather();
@@ -74,14 +83,33 @@ function App() {
         <CardContent className="p-4">
           <h2>7-Day Forecast</h2>
           <Separator className="my-2" />
-          <ul>
+          <Table>
+            <TableCaption>A summary of the next 7 days.</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Date</TableHead>
+                <TableHead>Min Temp (°C)</TableHead>
+                <TableHead>Max Temp (°C)</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {daily.time.map((day: string, index: number) => (
+                <TableRow key={day}>
+                  <TableCell>{day}</TableCell>
+                  <TableCell>{daily.temperature_2m_min[index]}</TableCell>
+                  <TableCell>{daily.temperature_2m_max[index]}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          {/* <ul>
             {daily.time.map((day: string, index: number) => (
               <li key={day}>
                 {day}: {daily.temperature_2m_min[index]}°C –{" "}
                 {daily.temperature_2m_max[index]}°C
               </li>
             ))}
-          </ul>
+          </ul> */}
           <br></br>
         </CardContent>
       </Card>
